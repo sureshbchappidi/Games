@@ -448,6 +448,113 @@ button.toggle-active {
   }
 }
 
+/* ── Mobile styles ── */
+@media (max-width: 600px) {
+  body {
+    font-size: 14px;
+  }
+
+  .app-shell {
+    width: 100vw;
+    margin: 0;
+    gap: 0;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  }
+
+  .panel {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    box-shadow: none;
+    padding: 0.75rem;
+  }
+
+  h1 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .top-controls {
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+
+  .top-controls button,
+  select {
+    font-size: 0.8rem;
+    padding: 0.45rem 0.65rem;
+  }
+
+  .difficulty-group label {
+    display: none;
+  }
+
+  header > p {
+    display: none;
+  }
+
+  .grid-header {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .sudoku-grid {
+    width: min(calc(100vw - 1.5rem), 360px);
+    height: min(calc(100vw - 1.5rem), 360px);
+    margin-inline: auto;
+  }
+
+  .cell {
+    font-size: clamp(1rem, 4vw, 1.4rem);
+  }
+
+  .controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+  }
+
+  .controls button {
+    font-size: 0.78rem;
+    padding: 0.55rem 0.4rem;
+    text-align: center;
+  }
+
+  .undo-button {
+    padding: 0.5rem 0.9rem;
+    font-size: 0.85rem;
+  }
+
+  .steps-panel {
+    max-height: 35vh;
+    overflow-y: auto;
+  }
+
+  .steps-panel h2 {
+    font-size: 1rem;
+  }
+
+  /* Improve touch tap targets */
+  button {
+    min-height: 44px;
+  }
+
+  .modal-content {
+    width: 95vw;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .custom-grid {
+    grid-template-columns: repeat(9, 1fr);
+  }
+
+  .upload-dropzone {
+    padding: 1rem;
+  }
+}
+
 /* Modal Styling */
 .modal {
   position: fixed;
