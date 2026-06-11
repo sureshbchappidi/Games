@@ -63,6 +63,21 @@
 
       <div id="sudoku-grid" class="sudoku-grid" aria-label="Sudoku board"></div>
 
+      <div class="digit-progress">
+        <p class="digit-progress-label">Digits placed:</p>
+        <div class="digit-indicators">
+          <span class="digit-indicator" data-digit="1">1</span>
+          <span class="digit-indicator" data-digit="2">2</span>
+          <span class="digit-indicator" data-digit="3">3</span>
+          <span class="digit-indicator" data-digit="4">4</span>
+          <span class="digit-indicator" data-digit="5">5</span>
+          <span class="digit-indicator" data-digit="6">6</span>
+          <span class="digit-indicator" data-digit="7">7</span>
+          <span class="digit-indicator" data-digit="8">8</span>
+          <span class="digit-indicator" data-digit="9">9</span>
+        </div>
+      </div>
+
       <div class="controls">
         <button id="reset-btn" type="button">Reset</button>
         <button id="candidates-btn" type="button">Show Candidates</button>
@@ -80,6 +95,16 @@
       <ol id="steps-list" class="steps-list"></ol>
     </section>
   </main>
+
+  <!-- Congratulations Modal -->
+  <div id="completion-modal" class="modal hidden">
+    <div class="modal-content completion-modal-content">
+      <h2>🎉 Puzzle Solved!</h2>
+      <p>Congratulations! You've successfully completed the puzzle.</p>
+      <button id="completion-new-btn" type="button">New Puzzle</button>
+      <button id="completion-close-btn" type="button">Close</button>
+    </div>
+  </div>
 
   <!-- Custom Puzzle Modal -->
   <div id="custom-modal" class="modal hidden">

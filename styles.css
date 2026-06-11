@@ -553,6 +553,26 @@ button.toggle-active {
   .upload-dropzone {
     padding: 1rem;
   }
+
+  .digit-progress {
+    padding: 0.75rem;
+    margin-top: 0.5rem;
+  }
+
+  .digit-indicators {
+    gap: 0.4rem;
+  }
+
+  .digit-indicator {
+    font-size: 0.9rem;
+    border-radius: 6px;
+  }
+
+  .digit-indicator.complete::after {
+    font-size: 0.7rem;
+    width: 0.9rem;
+    height: 0.9rem;
+  }
 }
 
 /* Modal Styling */
@@ -789,4 +809,111 @@ button.toggle-active {
 
 .hidden {
   display: none !important;
+}
+
+.digit-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: rgba(214, 108, 55, 0.08);
+  border-radius: 12px;
+  margin-top: 0.75rem;
+}
+
+.digit-progress-label {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+
+.digit-indicators {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  gap: 0.5rem;
+}
+
+.digit-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 1;
+  background: white;
+  border: 2px solid var(--line-soft);
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--ink);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.digit-indicator:hover {
+  border-color: var(--accent);
+  transform: scale(1.05);
+}
+
+.digit-indicator.complete {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent-strong);
+  font-weight: 700;
+}
+
+.digit-indicator.complete::after {
+  content: "✓";
+  position: absolute;
+  font-size: 0.8rem;
+  top: -0.4rem;
+  right: -0.4rem;
+  background: var(--accent-strong);
+  color: white;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.completion-modal-content {
+  text-align: center;
+  gap: 1.5rem;
+}
+
+.completion-modal-content h2 {
+  font-size: 2rem;
+  margin-top: 0;
+  color: var(--accent);
+  animation: pulse 0.6s ease-in-out;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.completion-modal-content p {
+  font-size: 1.1rem;
+  color: var(--ink-soft);
+  margin: 0.5rem 0 1rem 0;
+}
+
+.completion-modal-content button {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s;
+  margin: 0.5rem;
+}
+
+.completion-modal-content button:hover {
+  background: var(--accent-strong);
 }

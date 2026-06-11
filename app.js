@@ -14,6 +14,9 @@ const highlightGivensBtn = document.getElementById("highlight-givens-btn");
 const checkBtn = document.getElementById("check-btn");
 const nextStepBtn = document.getElementById("next-step-btn");
 const solveAllBtn = document.getElementById("solve-all-btn");
+const completionModal = document.getElementById("completion-modal");
+const completionNewBtn = document.getElementById("completion-new-btn");
+const completionCloseBtn = document.getElementById("completion-close-btn");
 
 let puzzleBoard = emptyBoard();
 let currentBoard = emptyBoard();
@@ -474,6 +477,41 @@ function setStatus(text) {
   statusEl.textContent = text;
 }
 
+function getDigitCounts(board) {
+  const counts = new Array(10).fill(0);
+  for (let row = 0; row < SIZE; row += 1) {
+    for (let col = 0; col < SIZE; col += 1) {
+      const val = board[row][col];
+      if (val > 0 && val <= 9) {
+        counts[val] += 1;
+      }
+    }
+  }
+  return counts;
+}
+
+function updateDigitProgress() {
+  const counts = getDigitCounts(currentBoard);
+  const indicators = document.querySelectorAll(".digit-indicator");
+  
+  indicators.forEach((indicator) => {
+    const digit = parseInt(indicator.dataset.digit, 10);
+    if (counts[digit] === 9) {
+      indicator.classList.add("complete");
+    } else {
+      indicator.classList.remove("complete");
+    }
+  });
+}
+
+function showCompletionModal() {
+  completionModal.classList.remove("hidden");
+}
+
+function closeCompletionModal() {
+  completionModal.classList.add("hidden");
+}
+
 function refreshConflicts() {
   for (let row = 0; row < SIZE; row += 1) {
     for (let col = 0; col < SIZE; col += 1) {
@@ -637,7 +675,9 @@ function renderBoard() {
 
         if (isSolved(currentBoard) && !boardHasConflicts(currentBoard)) {
           setStatus("Great work. You solved the puzzle.");
+          showCompletionModal();
         }
+        updateDigitProgress();
       });
 
       cell.appendChild(input);
@@ -646,6 +686,7 @@ function renderBoard() {
     }
   }
 
+  updateDigitProgress();
   refreshConflicts();
   // restore highlights if a cell was focused before render
   if (focusedCell) {
@@ -725,6 +766,7 @@ function solveAndExplainAll() {
 
   if (isSolved(currentBoard)) {
     setStatus(`Solved with ${steps.length} additional explained steps.`);
+    showCompletionModal();
   } else {
     setStatus("Solver paused before completion.");
   }
@@ -805,7 +847,12 @@ highlightGivensBtn.addEventListener("click", () => {
 checkBtn.addEventListener("click", checkProgress);
 nextStepBtn.addEventListener("click", applySingleStep);
 solveAllBtn.addEventListener("click", solveAndExplainAll);
+completionNewBtn.addEventListener('click', () => {
+  closeCompletionModal();
+  startNewPuzzle();
+});
 
+completionCloseBtn.addEventListener('click', closeCompletionModal);
 updateModeButton();
 updateCandidatesButton();
 startNewPuzzle();
