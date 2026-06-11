@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sudoku Reasoning Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <section class="panel board-panel">
+      <header>
+        <h1>Sudoku Reasoning Lab</h1>
+        
+        <div class="top-controls">
+          <div class="difficulty-group">
+            <label for="difficulty" class="difficulty-label">Difficulty</label>
+            <select id="difficulty" aria-label="Select puzzle difficulty">
+              <option value="easy">Easy</option>
+              <option value="medium" selected>Medium</option>
+              <option value="hard">Hard</option>
+              <option value="extreme">Extreme</option>
+            </select>
+          </div>
+          <button id="new-puzzle-btn" type="button">New Puzzle</button>
+          <button id="create-custom-btn" type="button">Create Puzzle</button>
+        </div>
+
+        <p>Pick a difficulty, solve it yourself, and get step-by-step logic hints.</p>
+
+        <div class="grid-header">
+          <div class="toggle-section">
+            <label class="mode-toggle" aria-label="Toggle input mode (N)" title="Press N to toggle">
+              <span class="mode-label" id="mode-label-value">Value</span>
+              <div class="toggle-track">
+                <input type="checkbox" id="mode-checkbox" />
+                <div class="toggle-thumb"></div>
+              </div>
+              <span class="mode-label" id="mode-label-notes">Notes</span>
+            </label>
+            <p class="toggle-help">Value mode [N to switch]</p>
+          </div>
+
+          <button id="undo-btn" type="button" title="Undo last move (Ctrl+Z)" class="undo-button">
+            <span class="undo-icon">↶</span>
+            <span class="undo-label">Undo</span>
+          </button>
+        </div>
+      </header>
+
+      <div id="sudoku-grid" class="sudoku-grid" aria-label="Sudoku board"></div>
+
+      <div class="controls">
+        <button id="reset-btn" type="button">Reset</button>
+        <button id="candidates-btn" type="button">Show Candidates</button>
+        <button id="highlight-givens-btn" type="button">Highlight Givens</button>
+        <button id="check-btn" type="button">Check Progress</button>
+        <button id="next-step-btn" type="button">Hint Next Step</button>
+        <button id="solve-all-btn" type="button">Explain & Solve</button>
+      </div>
+
+      <p id="status" class="status">Ready.</p>
+    </section>
+
+    <section class="panel steps-panel">
+      <h2>Step-by-step reasoning</h2>
+      <ol id="steps-list" class="steps-list"></ol>
+    </section>
+  </main>
+
+  <!-- Custom Puzzle Modal -->
+  <div id="custom-modal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Create Custom Puzzle</h2>
+        <button id="modal-close-btn" class="modal-close" type="button">×</button>
+      </div>
+      <div class="modal-tabs">
+        <button class="tab-btn active" data-tab="manual">Manual Entry</button>
+        <button class="tab-btn" data-tab="upload">Upload Image</button>
+      </div>
+      <div id="manual-tab" class="tab-content active">
+        <p>Click cells to enter puzzle clues (read-only values). Empty cells = solve spaces.</p>
+        <div id="custom-grid" class="custom-grid"></div>
+        <div class="custom-controls">
+          <button id="clear-custom-btn" type="button">Clear All</button>
+          <button id="random-fill-btn" type="button">Random Fill</button>
+          <button id="start-custom-btn" type="button">Start Puzzle</button>
+        </div>
+      </div>
+      <div id="upload-tab" class="tab-content">
+        <p>Upload an image of a Sudoku puzzle. We'll extract the numbers using OCR.</p>
+        <div id="upload-dropzone" class="upload-dropzone" role="button" tabindex="0" aria-label="Drop image here or choose file">
+          <p class="dropzone-title">Drag and drop an image here</p>
+          <p class="dropzone-subtitle">or click to choose a file</p>
+          <input type="file" id="puzzle-image" accept="image/*" />
+        </div>
+        <button id="process-image-btn" type="button">Process Image</button>
+        <p id="upload-status" class="upload-status"></p>
+        <div id="preview-grid" class="custom-grid"></div>
+        <button id="start-from-upload-btn" type="button" class="hidden">Confirm & Start</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5"></script>
+  <script src="app.js"></script>
+  <script src="custom-puzzle.js"></script>
+</body>
+</html>
