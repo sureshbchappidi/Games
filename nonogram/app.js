@@ -9,6 +9,9 @@ const clearBtn = document.getElementById("clear-btn");
 const hintBtn = document.getElementById("hint-btn");
 const checkBtn = document.getElementById("check-btn");
 const statusEl = document.getElementById("status");
+const completionModal = document.getElementById("completion-modal");
+const completionNewBtn = document.getElementById("completion-new-btn");
+const completionCloseBtn = document.getElementById("completion-close-btn");
 
 const PUZZLES = {
   5: [
@@ -60,6 +63,114 @@ const PUZZLES = {
         [0, 1, 1, 1, 0],
         [1, 0, 1, 0, 1],
         [0, 0, 1, 0, 0]
+      ]
+    }
+  ],
+  6: [
+    {
+      name: "Diamond",
+      grid: [
+        [0, 0, 1, 1, 0, 0],
+        [0, 1, 1, 1, 1, 0],
+        [1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1],
+        [0, 1, 1, 1, 1, 0],
+        [0, 0, 1, 1, 0, 0]
+      ]
+    },
+    {
+      name: "Cross",
+      grid: [
+        [0, 0, 1, 1, 0, 0],
+        [0, 0, 1, 1, 0, 0],
+        [1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1],
+        [0, 0, 1, 1, 0, 0],
+        [0, 0, 1, 1, 0, 0]
+      ]
+    }
+  ],
+  7: [
+    {
+      name: "Pyramid",
+      grid: [
+        [0, 0, 0, 1, 0, 0, 0],
+        [0, 0, 1, 1, 1, 0, 0],
+        [0, 1, 1, 1, 1, 1, 0],
+        [1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1]
+      ]
+    },
+    {
+      name: "Square",
+      grid: [
+        [1, 1, 1, 1, 1, 1, 1],
+        [1, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 1, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 1],
+        [1, 1, 1, 1, 1, 1, 1]
+      ]
+    }
+  ],
+  8: [
+    {
+      name: "Circle",
+      grid: [
+        [0, 0, 1, 1, 1, 1, 0, 0],
+        [0, 1, 1, 1, 1, 1, 1, 0],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [0, 1, 1, 1, 1, 1, 1, 0],
+        [0, 0, 1, 1, 1, 1, 0, 0]
+      ]
+    },
+    {
+      name: "Wave",
+      grid: [
+        [1, 1, 1, 0, 0, 0, 0, 0],
+        [1, 1, 1, 1, 0, 0, 0, 0],
+        [0, 1, 1, 1, 1, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 0, 0],
+        [0, 0, 0, 1, 1, 1, 1, 0],
+        [0, 0, 0, 0, 1, 1, 1, 1],
+        [0, 0, 0, 0, 0, 1, 1, 1],
+        [0, 0, 0, 0, 0, 0, 1, 1]
+      ]
+    }
+  ],
+  9: [
+    {
+      name: "Spiral",
+      grid: [
+        [1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 1, 1, 1, 1, 1, 0, 1],
+        [1, 0, 1, 0, 0, 0, 1, 0, 1],
+        [1, 0, 1, 0, 1, 0, 1, 0, 1],
+        [1, 0, 1, 0, 0, 0, 1, 0, 1],
+        [1, 0, 1, 1, 1, 1, 1, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1]
+      ]
+    },
+    {
+      name: "Target",
+      grid: [
+        [0, 0, 1, 1, 1, 1, 1, 0, 0],
+        [0, 1, 1, 1, 1, 1, 1, 1, 0],
+        [1, 1, 1, 0, 0, 0, 1, 1, 1],
+        [1, 1, 0, 0, 0, 0, 0, 1, 1],
+        [1, 1, 0, 0, 1, 0, 0, 1, 1],
+        [1, 1, 0, 0, 0, 0, 0, 1, 1],
+        [1, 1, 1, 0, 0, 0, 1, 1, 1],
+        [0, 1, 1, 1, 1, 1, 1, 1, 0],
+        [0, 0, 1, 1, 1, 1, 1, 0, 0]
       ]
     }
   ],
@@ -132,6 +243,8 @@ let size = 5;
 let playerGrid = [];
 let hintCell = null;
 let currentMode = "fill";
+let previousMode = "fill";
+let isEraseMode = false;
 let isDragging = false;
 
 function setStatus(message) {
@@ -348,12 +461,25 @@ sizeSelector.addEventListener("change", () => {
 });
 
 modeCheckbox.addEventListener("change", () => {
+  if (isEraseMode) return;
+  previousMode = currentMode;
   currentMode = modeCheckbox.checked ? "mark" : "fill";
 });
 
 eraseBtn.addEventListener("click", () => {
-  currentMode = "erase";
-  modeCheckbox.checked = false;
+  if (isEraseMode) {
+    isEraseMode = false;
+    currentMode = previousMode;
+    modeCheckbox.checked = previousMode === "mark";
+    modeCheckbox.disabled = false;
+    eraseBtn.classList.remove("active");
+  } else {
+    isEraseMode = true;
+    previousMode = currentMode;
+    currentMode = "erase";
+    modeCheckbox.disabled = true;
+    eraseBtn.classList.add("active");
+  }
 });
 
 newBtn.addEventListener("click", startPuzzle);
@@ -361,24 +487,49 @@ clearBtn.addEventListener("click", clearGrid);
 hintBtn.addEventListener("click", hint);
 checkBtn.addEventListener("click", () => {
   if (checkSolved()) {
-    setStatus("Great work. Puzzle solved.");
+    completionModal.classList.remove("hidden");
+    setStatus("Puzzle solved! 🎉");
   } else {
     setStatus("Not solved yet.");
   }
 });
 
+completionNewBtn.addEventListener("click", () => {
+  completionModal.classList.add("hidden");
+  startPuzzle();
+});
+
+completionCloseBtn.addEventListener("click", () => {
+  completionModal.classList.add("hidden");
+});
+
 document.addEventListener("keydown", (event) => {
   if (event.key === "1") {
+    if (isEraseMode) {
+      isEraseMode = false;
+      modeCheckbox.disabled = false;
+      eraseBtn.classList.remove("active");
+    }
     currentMode = "fill";
+    previousMode = "fill";
     modeCheckbox.checked = false;
   }
   if (event.key === "2") {
+    if (isEraseMode) {
+      isEraseMode = false;
+      modeCheckbox.disabled = false;
+      eraseBtn.classList.remove("active");
+    }
     currentMode = "mark";
+    previousMode = "mark";
     modeCheckbox.checked = true;
   }
   if (event.key === "0") {
+    isEraseMode = true;
+    previousMode = currentMode;
     currentMode = "erase";
-    modeCheckbox.checked = false;
+    modeCheckbox.disabled = true;
+    eraseBtn.classList.add("active");
   }
 });
 

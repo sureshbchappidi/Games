@@ -94,6 +94,12 @@ h1 {
   transform: translateX(20px);
 }
 
+.toggle-track input:disabled,
+.mode-toggle:has(input:disabled) {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 .erase-button {
   padding: 0.5rem 1rem;
   background: var(--panel);
@@ -245,4 +251,66 @@ h1 {
     width: min(28px, 7vw);
     height: min(28px, 7vw);
   }
+}
+
+/* Erase button active state */
+.erase-button.active {
+  background: var(--conflict);
+  border-color: var(--conflict);
+  color: var(--ink);
+}
+
+/* Modal styles */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: var(--panel);
+  border: 2px solid var(--line);
+  border-radius: 0;
+  padding: 2rem;
+  text-align: center;
+  max-width: 400px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.completion-modal-content h2 {
+  margin-top: 0;
+  font-size: 1.8rem;
+  color: var(--ink);
+}
+
+.completion-modal-content p {
+  color: var(--ink-soft);
+  margin: 1rem 0 1.5rem;
+}
+
+.completion-modal-content button {
+  margin: 0.5rem;
+  padding: 0.7rem 1.5rem;
+  background: var(--accent-strong);
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 0;
+  font-weight: 600;
+  transition: background 80ms ease;
+}
+
+.completion-modal-content button:hover {
+  background: var(--accent);
 }

@@ -26,6 +26,10 @@
         <label for="size-selector">Grid</label>
         <select id="size-selector" aria-label="Select grid size">
           <option value="5" selected>5x5</option>
+          <option value="6">6x6</option>
+          <option value="7">7x7</option>
+          <option value="8">8x8</option>
+          <option value="9">9x9</option>
           <option value="10">10x10</option>
         </select>
 
@@ -67,6 +71,16 @@
       <p id="status" class="status">Ready.</p>
     </section>
   </main>
+
+  <!-- Completion Modal -->
+  <div id="completion-modal" class="modal hidden">
+    <div class="modal-content completion-modal-content">
+      <h2>🎉 Puzzle Solved!</h2>
+      <p>Congratulations! You've successfully completed the puzzle.</p>
+      <button id="completion-new-btn" type="button">New Puzzle</button>
+      <button id="completion-close-btn" type="button">Close</button>
+    </div>
+  </div>
 
   <script type="module" src="app.js"></script>
   <script>
