@@ -2,6 +2,10 @@
 
 Use this instruction set to generate each new game as a separate web app while keeping the same visual identity, architecture quality, and UX style used in Sudoku Reasoning Lab.
 
+Repository convention:
+- Repository name should be `games`.
+- Each game lives as a top-level folder in the repo.
+
 ## 1) Goal
 Build a standalone browser game application (for example Tic-Tac-Toe, Nonogram, Kakuro, Minesweeper) with:
 - The same polished visual language
@@ -14,19 +18,19 @@ Each game must be generated in its own folder and run independently.
 
 ## 2) Required Output Structure (Per Game)
 For each game app, generate this structure:
-- games/[game-name]/index.html
-- games/[game-name]/styles.css
-- games/[game-name]/app.js
-- games/[game-name]/manifest.json
-- games/[game-name]/sw.js
-- games/[game-name]/icons/icon-192.png
-- games/[game-name]/icons/icon-512.png
-- games/[game-name]/README.md
+- [game-name]/index.html
+- [game-name]/styles.css
+- [game-name]/app.js
+- [game-name]/manifest.json
+- [game-name]/sw.js
+- [game-name]/icons/icon-192.png
+- [game-name]/icons/icon-512.png
+- [game-name]/README.md
 
 Optional when needed:
-- games/[game-name]/assets/
-- games/[game-name]/levels/
-- games/[game-name]/data/
+- [game-name]/assets/
+- [game-name]/levels/
+- [game-name]/data/
 
 ## 3) Visual Style Contract (Must Match Sudoku Family)
 Use these design principles:

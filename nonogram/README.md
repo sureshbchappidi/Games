@@ -21,4 +21,8 @@ python3 -m http.server 5500
 
 Then visit:
 
-`http://localhost:5500/games/nonogram/`
+`http://localhost:5500/nonogram/`
+
+Production (GitHub Pages repo named games):
+
+`https://sureshbchappidi.github.io/games/nonogram/`

@@ -22,4 +22,8 @@ python3 -m http.server 5500
 
 Then visit:
 
-`http://localhost:5500/games/tictactoe/`
+`http://localhost:5500/tictactoe/`
+
+Production (GitHub Pages repo named games):
+
+`https://sureshbchappidi.github.io/games/tictactoe/`

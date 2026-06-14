@@ -9,7 +9,7 @@ A browser-based Sudoku application that can:
 
 ## How to Run
 
-1. Open `games/sudoku/index.html` in your browser.
+1. Open `sudoku/index.html` in your browser.
 2. Choose a difficulty.
 3. Click **New Puzzle**.
 4. Enter your own numbers in editable cells.
@@ -39,7 +39,7 @@ Each step includes:
 
 ## Multi-Game Hub
 
-- Game Hub: `games/hub/index.html`
-- Sudoku: `games/sudoku/index.html`
-- Tic-Tac-Toe: `games/tictactoe/index.html`
-- Nonogram: `games/nonogram/index.html`
+- Game Hub: `hub/index.html`
+- Sudoku: `sudoku/index.html`
+- Tic-Tac-Toe: `tictactoe/index.html`
+- Nonogram: `nonogram/index.html`
