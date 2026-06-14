@@ -554,13 +554,11 @@ function handleDigitClick(digit) {
     erasePeerNotes(row, col, digit);
   }
 
+  // Preserve focusedCell across renderBoard (it gets cleared on blur during re-render)
+  const savedCell = { row, col };
   renderBoard();
-
-  // Keep focus on the same cell after render
-  if (cellEls[row][col]) {
-    const input = cellEls[row][col].querySelector("input");
-    if (input) input.focus();
-  }
+  focusedCell = savedCell;
+  applyHighlights(savedCell.row, savedCell.col);
 
   // Check if puzzle is solved
   if (isSolved(currentBoard) && !boardHasConflicts(currentBoard)) {
@@ -661,24 +659,24 @@ function renderBoard() {
         }, 50);
       });
 
-      // Double-tap detection for mobile keyboard
-      cell.addEventListener("touchend", (event) => {
+      // Double-tap detection for mobile keyboard (use touchstart for reliable iOS keyboard)
+      cell.addEventListener("touchstart", (event) => {
         if (!isMobileViewport() || givenMask[row][col]) {
           return;
         }
         const now = Date.now();
-        const isDoubleTap = lastTapCell === cell && now - lastTapTime < 300;
+        const isDoubleTap = lastTapCell === cell && now - lastTapTime < 350;
         lastTapTime = now;
         lastTapCell = cell;
 
         if (isDoubleTap) {
-          event.preventDefault();
           // Restore inputMode and remove readOnly so keyboard appears
           input.inputMode = "numeric";
           input.readOnly = false;
-          input.focus();
+          // Slight delay lets the browser settle before calling focus
+          setTimeout(() => input.focus(), 10);
         }
-      });
+      }, { passive: true });
 
       // Click handler for given cells (read-only inputs don't fire focus properly on click)
       if (givenMask[row][col]) {
@@ -957,6 +955,10 @@ completionCloseBtn.addEventListener('click', closeCompletionModal);
 // Add click handlers to digit indicators for mobile-friendly input
 const digitIndicators = document.querySelectorAll('.digit-indicator');
 digitIndicators.forEach(indicator => {
+  // Prevent the cell from losing focus when clicking a digit indicator (desktop)
+  indicator.addEventListener('pointerdown', (e) => {
+    e.preventDefault();
+  });
   indicator.addEventListener('click', () => {
     const digit = parseInt(indicator.dataset.digit, 10);
     handleDigitClick(digit);
