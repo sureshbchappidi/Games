@@ -338,6 +338,14 @@ function applyCell(row, col, mode) {
   }
 
   render();
+
+  // Check if puzzle is solved
+  if (checkSolved()) {
+    setTimeout(() => {
+      completionModal.classList.remove("hidden");
+      setStatus("Puzzle solved! 🎉");
+    }, 200);
+  }
 }
 
 function checkSolved() {
@@ -487,8 +495,7 @@ clearBtn.addEventListener("click", clearGrid);
 hintBtn.addEventListener("click", hint);
 checkBtn.addEventListener("click", () => {
   if (checkSolved()) {
-    completionModal.classList.remove("hidden");
-    setStatus("Puzzle solved! 🎉");
+    setStatus("Puzzle is complete! 🎉");
   } else {
     setStatus("Not solved yet.");
   }
