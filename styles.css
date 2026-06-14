@@ -249,11 +249,13 @@ p {
   text-align: center;
   font: inherit;
   color: var(--ink);
+  caret-color: transparent;
+  transition: transform 0.15s ease-out;
 }
 
 .cell input:focus {
-  outline: 2px solid #cc8e63;
-  outline-offset: -2px;
+  outline: none;
+  transform: scale(1.18);
 }
 
 .cell.box-right {
@@ -285,8 +287,7 @@ p {
 
 .cell.hl-focused {
   background: #fde8c8 !important;
-  outline: 2px solid #c86a1a;
-  outline-offset: -2px;
+  box-shadow: 0 0 0 3px #c86a1a;
   z-index: 3;
 }
 
