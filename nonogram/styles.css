@@ -202,25 +202,34 @@ h1 {
   background: var(--conflict);
 }
 
+.cell {
+  position: relative;
+}
+
 .cell.filled {
   background: var(--accent-strong) !important;
-  border: 1px solid var(--accent-strong) !important;
-  outline: 1px solid var(--accent-strong) !important;
-  outline-offset: -1px !important;
+  border: none !important;
+  margin: -1px 0 0 -1px !important;
+  position: relative !important;
+  z-index: 10 !important;
+  box-shadow: none !important;
 }
 
 .cell.filled:hover {
   background: var(--accent) !important;
-  border: 1px solid var(--accent) !important;
-  outline: 1px solid var(--accent) !important;
+  z-index: 11 !important;
 }
 
-.cell.filled[data-col="0"],
-.cell.filled[data-row="0"],
-.cell.filled.last-col,
-.cell.filled.last-row {
-  border: 1px solid var(--accent-strong) !important;
-  outline: 1px solid var(--accent-strong) !important;
+.cell.filled[data-col="0"] {
+  margin: -1px 0 0 0 !important;
+}
+
+.cell.filled[data-row="0"] {
+  margin: 0 0 0 -1px !important;
+}
+
+.cell.filled[data-col="0"][data-row="0"] {
+  margin: 0 !important;
 }
 
 .cell.marked {
