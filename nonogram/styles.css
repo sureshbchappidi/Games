@@ -17,42 +17,144 @@ h1 {
   color: var(--ink-soft);
 }
 
-.nonogram-root {
+.mode-section {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
   margin-top: 1rem;
-  overflow-x: auto;
+  margin-bottom: 1rem;
 }
 
-/* Clue labels — no borders, just aligned numbers */
-.top-clue {
-  font-family: "DM Mono", monospace;
-  font-size: 0.75rem;
-  color: var(--ink-soft);
-  line-height: 1.15;
+/* iOS-style mode toggle */
+.mode-toggle {
   display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  padding-bottom: 4px;
+  align-items: center;
+  gap: 0.45rem;
+  cursor: pointer;
   user-select: none;
 }
 
-.left-clue {
+.mode-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+  transition: color 180ms ease;
+}
+
+#mode-label-mark {
+  color: var(--ink-soft);
+}
+
+.mode-toggle:has(#mode-checkbox:checked) #mode-label-mark {
+  color: var(--accent-strong);
+}
+
+.mode-toggle:has(#mode-checkbox:checked) #mode-label-fill {
+  color: var(--ink-soft);
+}
+
+.mode-toggle:not(:has(#mode-checkbox:checked)) #mode-label-fill {
+  color: var(--accent-strong);
+}
+
+.toggle-track {
+  position: relative;
+  width: 46px;
+  height: 26px;
+  background: #d0c4b0;
+  border-radius: 999px;
+  transition: background 250ms ease;
+  flex-shrink: 0;
+}
+
+.toggle-track input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.28);
+  transition: transform 250ms cubic-bezier(0.34, 1.56, 0.64, 1), background 250ms ease;
+}
+
+.toggle-track:has(input:checked) {
+  background: var(--accent-strong);
+}
+
+.toggle-track:has(input:checked) .toggle-thumb {
+  transform: translateX(20px);
+}
+
+.erase-button {
+  padding: 0.5rem 1rem;
+  background: var(--panel);
+  border: 1px solid var(--line-soft);
+  color: var(--ink-soft);
+  cursor: pointer;
+  border-radius: 0;
+  transition: all 80ms ease;
+  font-size: 0.9rem;
+}
+
+.erase-button:hover {
+  background: var(--conflict);
+}
+
+.nonogram-root {
+  margin-top: 0;
+  overflow-x: auto;
+}
+
+/* Clue cells — proper grid cells for clues */
+.clue-corner {
+  border-right: 2px solid var(--line);
+  border-bottom: 2px solid var(--line);
+  background: var(--panel);
+}
+
+.clue-cell {
   font-family: "DM Mono", monospace;
   font-size: 0.75rem;
   color: var(--ink-soft);
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  padding-right: 6px;
+  justify-content: center;
   user-select: none;
+  border-right: 1px solid var(--line-soft);
+  border-bottom: 1px solid var(--line-soft);
+  background: var(--panel);
+  padding: 4px;
+  line-height: 1.2;
 }
 
-/* ── Game cells — connected grid, no gaps ── */
+.clue-top {
+  border-right: 1px solid var(--line-soft);
+  border-bottom: 2px solid var(--line);
+  justify-content: center;
+  align-items: flex-end;
+  padding-bottom: 6px;
+}
+
+.clue-left {
+  border-right: 2px solid var(--line);
+  border-bottom: 1px solid var(--line-soft);
+  justify-content: flex-end;
+  padding-right: 6px;
+}
+
+/* ── Game cells — clean grid ── */
 .cell {
-  width: min(32px, 7vw);
-  height: min(32px, 7vw);
-  /* right + bottom border on every cell creates the grid */
-  border-top: none;
-  border-left: none;
+  width: min(36px, 7vw);
+  height: min(36px, 7vw);
   border-right: 1px solid var(--line-soft);
   border-bottom: 1px solid var(--line-soft);
   background: var(--panel);
@@ -67,34 +169,23 @@ h1 {
   padding: 0;
   outline: none;
   -webkit-tap-highlight-color: transparent;
+  border-top: none;
+  border-left: none;
 }
 
-/* Outer left edge of game grid (first game column) */
 .cell[data-col="0"] {
   border-left: 2px solid var(--line);
 }
 
-/* Outer top edge of game grid (first game row) */
 .cell[data-row="0"] {
   border-top: 2px solid var(--line);
 }
 
-/* Outer right edge */
 .cell.last-col {
   border-right: 2px solid var(--line);
 }
 
-/* Outer bottom edge */
 .cell.last-row {
-  border-bottom: 2px solid var(--line);
-}
-
-/* 5-cell group dividers */
-.cell.group-right {
-  border-right: 2px solid var(--line);
-}
-
-.cell.group-bottom {
   border-bottom: 2px solid var(--line);
 }
 
@@ -127,6 +218,13 @@ h1 {
   outline-offset: -2px;
 }
 
+/* Ensure completely flat design */
+.cell,
+.clue-cell,
+.clue-corner {
+  border-radius: 0 !important;
+}
+
 .status {
   margin: 0.9rem 0 0;
   color: var(--ink-soft);
@@ -144,7 +242,7 @@ h1 {
   }
 
   .cell {
-    width: min(26px, 7vw);
-    height: min(26px, 7vw);
+    width: min(28px, 7vw);
+    height: min(28px, 7vw);
   }
 }

@@ -29,16 +29,6 @@
           <option value="10">10x10</option>
         </select>
 
-        <label for="puzzle-selector">Puzzle</label>
-        <select id="puzzle-selector" aria-label="Select puzzle"></select>
-
-        <label for="paint-mode">Mode</label>
-        <select id="paint-mode" aria-label="Select paint mode">
-          <option value="fill" selected>Fill</option>
-          <option value="mark">Mark X</option>
-          <option value="erase">Erase</option>
-        </select>
-
         <label for="theme-selector">Theme</label>
         <select id="theme-selector" aria-label="Select theme">
           <option value="default">Warm Beige</option>
@@ -53,6 +43,18 @@
         <button id="clear-btn" type="button">Clear</button>
         <button id="hint-btn" type="button">Hint</button>
         <button id="check-btn" type="button">Check</button>
+      </div>
+
+      <div class="mode-section">
+        <label class="mode-toggle" aria-label="Toggle mode (1/2)" title="Press 1 for Fill, 2 for Mark">
+          <span class="mode-label" id="mode-label-fill">Fill</span>
+          <div class="toggle-track">
+            <input type="checkbox" id="mode-checkbox" />
+            <div class="toggle-thumb"></div>
+          </div>
+          <span class="mode-label" id="mode-label-mark">Mark X</span>
+        </label>
+        <button id="erase-btn" type="button" class="erase-button">Erase</button>
       </div>
 
       <section class="legend" aria-label="Input help">
