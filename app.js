@@ -634,8 +634,9 @@ function renderBoard() {
         cell.classList.add("user-value");
       }
 
-      // On mobile, make input readonly to prevent auto-showing keyboard
+      // On mobile, suppress keyboard by using inputmode="none" and readOnly
       if (isMobileViewport()) {
+        input.inputMode = "none";
         input.readOnly = true;
       }
 
@@ -645,8 +646,9 @@ function renderBoard() {
       });
 
       input.addEventListener("blur", () => {
-        // Re-apply readonly on mobile to prevent keyboard showing on accidental focus
+        // Re-apply inputmode=none and readOnly on mobile after keyboard use
         if (isMobileViewport() && !givenMask[row][col]) {
+          input.inputMode = "none";
           input.readOnly = true;
         }
         // small delay so focus moving to another cell clears+reapplies cleanly
@@ -671,7 +673,8 @@ function renderBoard() {
 
         if (isDoubleTap) {
           event.preventDefault();
-          // Remove readonly on double-tap to show keyboard
+          // Restore inputMode and remove readOnly so keyboard appears
+          input.inputMode = "numeric";
           input.readOnly = false;
           input.focus();
         }
