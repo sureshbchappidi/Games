@@ -1,0 +1,84 @@
+h1 {
+  margin: 0;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+}
+
+.subtitle {
+  margin-top: 0.35rem;
+  color: var(--ink-soft);
+}
+
+.score-row {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+
+.score-card {
+  border: 1px solid var(--line-soft);
+  border-radius: 10px;
+  padding: 0.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff40;
+}
+
+.score-card span {
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.score-card strong {
+  font-size: 1.2rem;
+}
+
+.board {
+  margin-top: 1rem;
+  width: min(420px, 92vw);
+  aspect-ratio: 1 / 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+.cell {
+  border: 2px solid var(--line);
+  border-radius: 14px;
+  background: var(--panel);
+  color: var(--ink);
+  font-family: "DM Mono", monospace;
+  font-size: clamp(2rem, 8vw, 3.2rem);
+  font-weight: 500;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform 120ms ease, border-color 120ms ease;
+  min-height: 88px;
+}
+
+.cell:hover {
+  transform: scale(1.02);
+  border-color: var(--accent);
+}
+
+.cell:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.cell.win {
+  border-color: var(--accent-strong);
+  background: #00000010;
+}
+
+@media (max-width: 600px) {
+  .top-controls label {
+    display: none;
+  }
+
+  .board {
+    width: min(360px, calc(100vw - 1.4rem));
+  }
+}

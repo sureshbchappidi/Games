@@ -1,0 +1,94 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Space Grotesk", sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 10% 15%, #ffd8ae 0%, transparent 38%),
+    radial-gradient(circle at 90% 85%, #f2c08e 0%, transparent 35%),
+    linear-gradient(120deg, var(--bg) 0%, var(--panel) 100%);
+}
+
+.app-shell {
+  width: min(980px, 94vw);
+  margin: 1.5rem auto;
+}
+
+.panel {
+  background: var(--panel);
+  border: 2px solid var(--line);
+  border-radius: 18px;
+  padding: 1rem;
+  box-shadow: 8px 8px 0 #d7b792;
+}
+
+.top-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+select,
+button {
+  font-family: inherit;
+  font-size: 0.9rem;
+  border-radius: 10px;
+}
+
+select {
+  border: 1px solid var(--line-soft);
+  background: var(--panel);
+  color: var(--ink);
+  padding: 0.45rem 0.6rem;
+}
+
+button {
+  border: none;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%);
+  color: #fff;
+  padding: 0.55rem 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 160ms ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+.status {
+  margin: 0.9rem 0 0;
+  color: var(--ink-soft);
+  font-size: 0.88rem;
+}
+
+label {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+
+@media (max-width: 600px) {
+  .app-shell {
+    width: 100vw;
+    margin: 0;
+    padding: 0.6rem;
+  }
+
+  .panel {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    box-shadow: none;
+    padding: 0.75rem;
+  }
+}
