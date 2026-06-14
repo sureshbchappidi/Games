@@ -657,6 +657,8 @@ function renderBoard() {
         }
         // small delay so focus moving to another cell clears+reapplies cleanly
         setTimeout(() => {
+          // If this input was removed from the DOM by renderBoard(), ignore the blur
+          if (!input.isConnected) return;
           if (!focusedCell || focusedCell.row !== row || focusedCell.col !== col) {
             return;
           }
