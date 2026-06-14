@@ -62,10 +62,9 @@ h1 {
   width: 46px;
   height: 26px;
   background: #d0c4b0;
-  border-radius: 0;
+  border-radius: 999px;
   transition: background 250ms ease;
   flex-shrink: 0;
-  border: 1px solid var(--line-soft);
 }
 
 .toggle-track input {
@@ -77,15 +76,14 @@ h1 {
 
 .toggle-thumb {
   position: absolute;
-  top: 1px;
-  left: 1px;
-  width: 24px;
-  height: 24px;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
   background: #fff;
-  border-radius: 0;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  border-radius: 50%;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.28);
   transition: transform 250ms cubic-bezier(0.34, 1.56, 0.64, 1), background 250ms ease;
-  border: 1px solid var(--line-soft);
 }
 
 .toggle-track:has(input:checked) {
@@ -93,7 +91,7 @@ h1 {
 }
 
 .toggle-track:has(input:checked) .toggle-thumb {
-  transform: translateX(22px);
+  transform: translateX(20px);
 }
 
 .toggle-track input:disabled,
@@ -207,10 +205,13 @@ h1 {
 .cell.filled {
   background: var(--accent-strong);
   border-color: var(--accent-strong);
+  border-right-color: var(--accent-strong);
+  border-bottom-color: var(--accent-strong);
 }
 
 .cell.filled:hover {
   background: var(--accent);
+  border-color: var(--accent);
 }
 
 .cell.marked {
@@ -229,13 +230,10 @@ h1 {
   outline-offset: -2px;
 }
 
-/* Ensure completely flat design */
+/* Ensure flat design for grid elements */
 .cell,
 .clue-cell,
-.clue-corner,
-button,
-select,
-input {
+.clue-corner {
   border-radius: 0 !important;
   -webkit-border-radius: 0 !important;
 }
