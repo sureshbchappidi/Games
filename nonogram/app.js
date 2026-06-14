@@ -190,8 +190,8 @@ function render() {
 
   const wrapper = document.createElement("div");
   wrapper.style.display = "grid";
-  wrapper.style.gridTemplateColumns = `repeat(${maxLeft}, minmax(16px, 1fr)) repeat(${size}, minmax(26px, 1fr))`;
-  wrapper.style.gap = "2px";
+  wrapper.style.gridTemplateColumns = `repeat(${maxLeft}, minmax(16px, auto)) repeat(${size}, min(32px, 7vw))`;
+  wrapper.style.gap = "0";
 
   for (let tr = 0; tr < maxTop; tr += 1) {
     for (let lc = 0; lc < maxLeft; lc += 1) {
@@ -229,8 +229,10 @@ function render() {
       if (playerGrid[r][c] === 1) cell.classList.add("filled");
       if (playerGrid[r][c] === 2) cell.classList.add("marked");
       if (hintCell && hintCell.row === r && hintCell.col === c) cell.classList.add("hint");
-      if ((c + 1) % 5 === 0 && c + 1 < size) cell.dataset.groupRight = "";
-      if ((r + 1) % 5 === 0 && r + 1 < size) cell.dataset.groupBottom = "";
+        if ((c + 1) % 5 === 0 && c + 1 < size) cell.classList.add("group-right");
+        if ((r + 1) % 5 === 0 && r + 1 < size) cell.classList.add("group-bottom");
+        if (c === size - 1) cell.classList.add("last-col");
+        if (r === size - 1) cell.classList.add("last-row");
 
       cell.addEventListener("click", () => applyCell(r, c, modeSelector.value));
       cell.addEventListener("contextmenu", (event) => {
@@ -267,6 +269,9 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "2") modeSelector.value = "mark";
   if (event.key === "0") modeSelector.value = "erase";
 });
+
+import { initTheme } from "../game-ui-kit/theme.js";
+initTheme("theme-selector", "nonogram-theme");
 
 populatePuzzleSelector();
 startPuzzle();

@@ -1,169 +1,136 @@
-/* ── Nonogram dark-navy theme ── */
-:root,
-body {
-  --nano-bg:           #0d1627;
-  --nano-cell:         #0d1627;
-  --nano-border:       #1e2d47;
-  --nano-border-thick: #2e4266;
-  --nano-clue:         #c8d8f0;
-  --nano-clue-dim:     #5a7aaa;
-  --nano-filled:       #c8d8f0;
-  --nano-marked-bg:    #1a3060;
-  --nano-hint:         #4a9eff;
-}
-
-/* Override shell.css background for this page */
-body {
-  background: var(--nano-bg) !important;
-  color: var(--nano-clue);
-}
-
-/* Flatten the panel */
-.panel {
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  border-radius: 0 !important;
-}
-
 h1 {
   margin: 0;
-  font-size: clamp(1.2rem, 2.5vw, 1.7rem);
-  color: var(--nano-clue);
-  letter-spacing: 0.04em;
+  font-size: clamp(1.4rem, 3vw, 2rem);
 }
 
 .subtitle {
-  margin-top: 0.3rem;
-  color: var(--nano-clue-dim);
-  font-size: 0.85rem;
+  margin-top: 0.35rem;
+  color: var(--ink-soft);
 }
 
 .legend {
-  margin-top: 0.6rem;
+  margin-top: 0.8rem;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.6rem;
-  font-size: 0.78rem;
-  color: var(--nano-clue-dim);
+  gap: 0.7rem;
+  font-size: 0.83rem;
+  color: var(--ink-soft);
 }
 
-/* Controls */
-select,
-button {
-  border-radius: 6px !important;
-}
-
-select {
-  background: #111e36 !important;
-  color: var(--nano-clue) !important;
-  border: 1px solid var(--nano-border-thick) !important;
-}
-
-button {
-  background: linear-gradient(135deg, #1e3a6e 0%, #0f2448 100%) !important;
-  color: var(--nano-clue) !important;
-  border: 1px solid var(--nano-border-thick) !important;
-}
-
-label {
-  color: var(--nano-clue-dim) !important;
-}
-
-.status {
-  margin: 0.8rem 0 0;
-  color: var(--nano-clue-dim);
-  font-size: 0.85rem;
-}
-
-/* ── Grid ── */
 .nonogram-root {
-  margin-top: 1.2rem;
+  margin-top: 1rem;
   overflow-x: auto;
 }
 
+/* Clue labels — no borders, just aligned numbers */
 .top-clue {
   font-family: "DM Mono", monospace;
-  font-size: 0.7rem;
-  color: var(--nano-clue);
+  font-size: 0.75rem;
+  color: var(--ink-soft);
   line-height: 1.15;
-  text-align: center;
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  padding-bottom: 3px;
-  min-height: 18px;
+  padding-bottom: 4px;
   user-select: none;
 }
 
 .left-clue {
   font-family: "DM Mono", monospace;
-  font-size: 0.7rem;
-  color: var(--nano-clue);
-  text-align: right;
+  font-size: 0.75rem;
+  color: var(--ink-soft);
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding-right: 5px;
+  padding-right: 6px;
   user-select: none;
 }
 
+/* ── Game cells — connected grid, no gaps ── */
 .cell {
-  width: min(30px, 7.5vw);
-  height: min(30px, 7.5vw);
-  border: 1px solid var(--nano-border);
-  background: var(--nano-cell);
+  width: min(32px, 7vw);
+  height: min(32px, 7vw);
+  /* right + bottom border on every cell creates the grid */
+  border-top: none;
+  border-left: none;
+  border-right: 1px solid var(--line-soft);
+  border-bottom: 1px solid var(--line-soft);
+  background: var(--panel);
   cursor: pointer;
   user-select: none;
   display: grid;
   place-items: center;
   font-family: "DM Mono", monospace;
   font-size: 0.85rem;
-  color: var(--nano-clue-dim);
+  color: var(--ink-soft);
   transition: background 80ms ease;
   padding: 0;
   outline: none;
   -webkit-tap-highlight-color: transparent;
 }
 
+/* Outer left edge of game grid (first game column) */
+.cell[data-col="0"] {
+  border-left: 2px solid var(--line);
+}
+
+/* Outer top edge of game grid (first game row) */
+.cell[data-row="0"] {
+  border-top: 2px solid var(--line);
+}
+
+/* Outer right edge */
+.cell.last-col {
+  border-right: 2px solid var(--line);
+}
+
+/* Outer bottom edge */
+.cell.last-row {
+  border-bottom: 2px solid var(--line);
+}
+
+/* 5-cell group dividers */
+.cell.group-right {
+  border-right: 2px solid var(--line);
+}
+
+.cell.group-bottom {
+  border-bottom: 2px solid var(--line);
+}
+
 .cell:hover {
-  background: #172338;
-}
-
-.cell[data-group-right] {
-  border-right-color: var(--nano-border-thick);
-  border-right-width: 2px;
-}
-
-.cell[data-group-bottom] {
-  border-bottom-color: var(--nano-border-thick);
-  border-bottom-width: 2px;
+  background: var(--conflict);
 }
 
 .cell.filled {
-  background: var(--nano-filled);
-  border-color: var(--nano-filled);
+  background: var(--accent-strong);
+  border-color: var(--accent-strong);
 }
 
 .cell.filled:hover {
-  background: #a8c0e0;
+  background: var(--accent);
 }
 
 .cell.marked {
-  background: var(--nano-marked-bg);
-  border-color: var(--nano-border-thick);
+  background: var(--panel);
 }
 
 .cell.marked::after {
   content: "✕";
-  font-size: 0.62rem;
-  color: var(--nano-clue-dim);
+  font-size: 0.7rem;
+  color: var(--ink-soft);
+  font-weight: 700;
 }
 
 .cell.hint {
-  outline: 2px solid var(--nano-hint);
+  outline: 2px solid var(--accent);
   outline-offset: -2px;
-  background: #0d2040;
+}
+
+.status {
+  margin: 0.9rem 0 0;
+  color: var(--ink-soft);
+  font-size: 0.88rem;
 }
 
 @media (max-width: 600px) {
@@ -173,7 +140,7 @@ label {
 
   .left-clue,
   .top-clue {
-    font-size: 0.62rem;
+    font-size: 0.65rem;
   }
 
   .cell {
