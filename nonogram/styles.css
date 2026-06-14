@@ -202,17 +202,13 @@ h1 {
   background: var(--conflict);
 }
 
-.cell {
-  position: relative;
-}
-
 .cell.filled {
   background: var(--accent-strong) !important;
-  border: none !important;
-  margin: -1px 0 0 -1px !important;
+  border-width: 0 !important;
+  border: 0 !important;
+  margin: 0 !important;
   position: relative !important;
   z-index: 10 !important;
-  box-shadow: none !important;
 }
 
 .cell.filled:hover {
@@ -220,16 +216,12 @@ h1 {
   z-index: 11 !important;
 }
 
-.cell.filled[data-col="0"] {
-  margin: -1px 0 0 0 !important;
-}
-
-.cell.filled[data-row="0"] {
-  margin: 0 0 0 -1px !important;
-}
-
-.cell.filled[data-col="0"][data-row="0"] {
-  margin: 0 !important;
+.cell.filled[data-col="0"],
+.cell.filled[data-row="0"],
+.cell.filled.last-col,
+.cell.filled.last-row {
+  border-width: 0 !important;
+  border: 0 !important;
 }
 
 .cell.marked {

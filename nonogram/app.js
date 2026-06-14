@@ -442,7 +442,10 @@ function render() {
       cell.dataset.col = String(c);
       cell.setAttribute("aria-label", `Cell ${r + 1},${c + 1}`);
 
-      if (playerGrid[r][c] === 1) cell.classList.add("filled");
+      if (playerGrid[r][c] === 1) {
+        cell.classList.add("filled");
+        cell.style.borderWidth = "0";
+      }
       if (playerGrid[r][c] === 2) cell.classList.add("marked");
       if (hintCell && hintCell.row === r && hintCell.col === c) cell.classList.add("hint");
       if (c === size - 1) cell.classList.add("last-col");
