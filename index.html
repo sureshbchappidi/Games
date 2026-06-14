@@ -7,6 +7,7 @@
 
   <!-- PWA -->
   <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/png" href="icons/icon-192.png" />
   <meta name="theme-color" content="#d66c37" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -146,7 +147,7 @@
   <script src="custom-puzzle.js"></script>
   <script>
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./sw.js');
+      navigator.serviceWorker.register('./sw.js?v=2').then(reg => reg.update());
     }
   </script>
 </body>

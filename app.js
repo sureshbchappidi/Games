@@ -512,6 +512,56 @@ function closeCompletionModal() {
   completionModal.classList.add("hidden");
 }
 
+function handleDigitClick(digit) {
+  if (!focusedCell) {
+    setStatus("Click on a cell first to select it.");
+    return;
+  }
+
+  const { row, col } = focusedCell;
+
+  // Don't allow editing given clues
+  if (givenMask[row][col]) {
+    setStatus("Cannot edit given clues.");
+    return;
+  }
+
+  if (inputMode === "notes") {
+    // Toggle note for this digit
+    if (currentBoard[row][col] !== 0) {
+      setStatus("Clear the value first, then add notes for that cell.");
+      return;
+    }
+    saveUndo();
+    if (userNotes[row][col].has(digit)) {
+      userNotes[row][col].delete(digit);
+    } else {
+      userNotes[row][col].add(digit);
+    }
+  } else {
+    // Value mode: enter the digit
+    saveUndo();
+    currentBoard[row][col] = digit;
+    userNotes[row][col].clear();
+    erasePeerNotes(row, col, digit);
+  }
+
+  renderBoard();
+
+  // Keep focus on the same cell after render
+  if (cellEls[row][col]) {
+    const input = cellEls[row][col].querySelector("input");
+    if (input) input.focus();
+  }
+
+  // Check if puzzle is solved
+  if (isSolved(currentBoard) && !boardHasConflicts(currentBoard)) {
+    setStatus("Great work. You solved the puzzle.");
+    showCompletionModal();
+  }
+  updateDigitProgress();
+}
+
 function refreshConflicts() {
   for (let row = 0; row < SIZE; row += 1) {
     for (let col = 0; col < SIZE; col += 1) {
@@ -853,6 +903,16 @@ completionNewBtn.addEventListener('click', () => {
 });
 
 completionCloseBtn.addEventListener('click', closeCompletionModal);
+
+// Add click handlers to digit indicators for mobile-friendly input
+const digitIndicators = document.querySelectorAll('.digit-indicator');
+digitIndicators.forEach(indicator => {
+  indicator.addEventListener('click', () => {
+    const digit = parseInt(indicator.dataset.digit, 10);
+    handleDigitClick(digit);
+  });
+});
+
 updateModeButton();
 updateCandidatesButton();
 startNewPuzzle();

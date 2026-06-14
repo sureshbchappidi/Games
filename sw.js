@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sudoku-v1';
+const CACHE_NAME = 'sudoku-v2';
 const ASSETS = [
   './',
   './index.html',
@@ -6,6 +6,8 @@ const ASSETS = [
   './custom-puzzle.js',
   './styles.css',
   './manifest.json',
+  './icons/icon-192.png',
+  './icons/icon-512.png',
   'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap'
 ];
 
@@ -26,14 +28,42 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', event => {
-  // Network-first for Tesseract CDN, cache-first for everything else
-  if (event.request.url.includes('tesseract') || event.request.url.includes('cdn.jsdelivr')) {
+  const { request } = event;
+  const url = new URL(request.url);
+  const isSameOrigin = url.origin === self.location.origin;
+  const isAppAsset = isSameOrigin && (
+    request.mode === 'navigate' ||
+    url.pathname.endsWith('/index.html') ||
+    url.pathname.endsWith('/app.js') ||
+    url.pathname.endsWith('/custom-puzzle.js') ||
+    url.pathname.endsWith('/styles.css') ||
+    url.pathname.endsWith('/manifest.json')
+  );
+
+  // Always try network first for core app assets so deployments show up quickly.
+  if (isAppAsset) {
     event.respondWith(
-      fetch(event.request).catch(() => caches.match(event.request))
+      fetch(request)
+        .then(response => {
+          const cloned = response.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(request, cloned));
+          return response;
+        })
+        .catch(() => caches.match(request).then(cached => cached || caches.match('./index.html')))
     );
     return;
   }
+
+  // Network-first for external dynamic libraries, cache fallback for offline.
+  if (request.url.includes('tesseract') || request.url.includes('cdn.jsdelivr')) {
+    event.respondWith(
+      fetch(request).catch(() => caches.match(request))
+    );
+    return;
+  }
+
+  // Cache-first for static resources not covered above.
   event.respondWith(
-    caches.match(event.request).then(cached => cached || fetch(event.request))
+    caches.match(request).then(cached => cached || fetch(request))
   );
 });

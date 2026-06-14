@@ -566,6 +566,7 @@ button.toggle-active {
   .digit-indicator {
     font-size: 0.9rem;
     border-radius: 6px;
+    touch-action: manipulation;
   }
 
   .digit-indicator.complete::after {
@@ -848,11 +849,18 @@ button.toggle-active {
   color: var(--ink);
   transition: all 0.3s ease;
   position: relative;
+  cursor: pointer;
+  user-select: none;
 }
 
 .digit-indicator:hover {
   border-color: var(--accent);
   transform: scale(1.05);
+}
+
+.digit-indicator:active {
+  transform: scale(0.95);
+  filter: brightness(0.95);
 }
 
 .digit-indicator.complete {
