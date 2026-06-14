@@ -204,18 +204,15 @@ h1 {
 
 .cell.filled {
   background: var(--accent-strong) !important;
-  border-right: 1px solid var(--accent-strong) !important;
-  border-bottom: 1px solid var(--accent-strong) !important;
-  border-top: 1px solid var(--accent-strong) !important;
-  border-left: 1px solid var(--accent-strong) !important;
+  border: 1px solid var(--accent-strong) !important;
+  outline: 1px solid var(--accent-strong) !important;
+  outline-offset: -1px !important;
 }
 
 .cell.filled:hover {
   background: var(--accent) !important;
-  border-right-color: var(--accent) !important;
-  border-bottom-color: var(--accent) !important;
-  border-top-color: var(--accent) !important;
-  border-left-color: var(--accent) !important;
+  border: 1px solid var(--accent) !important;
+  outline: 1px solid var(--accent) !important;
 }
 
 .cell.filled[data-col="0"],
@@ -223,6 +220,7 @@ h1 {
 .cell.filled.last-col,
 .cell.filled.last-row {
   border: 1px solid var(--accent-strong) !important;
+  outline: 1px solid var(--accent-strong) !important;
 }
 
 .cell.marked {
