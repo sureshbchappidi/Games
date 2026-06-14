@@ -547,18 +547,24 @@ function handleDigitClick(digit) {
       userNotes[row][col].add(digit);
     }
   } else {
-    // Value mode: enter the digit
+    // Value mode: same digit again clears the cell, different digit replaces
     saveUndo();
-    currentBoard[row][col] = digit;
-    userNotes[row][col].clear();
-    erasePeerNotes(row, col, digit);
+    if (currentBoard[row][col] === digit) {
+      currentBoard[row][col] = 0;
+    } else {
+      currentBoard[row][col] = digit;
+      userNotes[row][col].clear();
+      erasePeerNotes(row, col, digit);
+    }
   }
 
-  // Preserve focusedCell across renderBoard (it gets cleared on blur during re-render)
+  // Preserve focusedCell and re-focus the new input after renderBoard re-creates DOM
   const savedCell = { row, col };
   renderBoard();
   focusedCell = savedCell;
   applyHighlights(savedCell.row, savedCell.col);
+  const newInput = cellEls[savedCell.row][savedCell.col]?.querySelector("input");
+  if (newInput) newInput.focus();
 
   // Check if puzzle is solved
   if (isSolved(currentBoard) && !boardHasConflicts(currentBoard)) {
@@ -659,8 +665,8 @@ function renderBoard() {
         }, 50);
       });
 
-      // Double-tap detection for mobile keyboard (use touchstart for reliable iOS keyboard)
-      cell.addEventListener("touchstart", (event) => {
+      // Double-tap detection: touchend without preventDefault so iOS focus works synchronously
+      cell.addEventListener("touchend", () => {
         if (!isMobileViewport() || givenMask[row][col]) {
           return;
         }
@@ -670,13 +676,13 @@ function renderBoard() {
         lastTapCell = cell;
 
         if (isDoubleTap) {
-          // Restore inputMode and remove readOnly so keyboard appears
-          input.inputMode = "numeric";
-          input.readOnly = false;
-          // Slight delay lets the browser settle before calling focus
-          setTimeout(() => input.focus(), 10);
+          // Must set readOnly=false and inputMode BEFORE focus() for iOS keyboard to appear
+          const currentInput = cellEls[row][col]?.querySelector("input") || input;
+          currentInput.inputMode = "numeric";
+          currentInput.readOnly = false;
+          currentInput.focus();
         }
-      }, { passive: true });
+      });
 
       // Click handler for given cells (read-only inputs don't fire focus properly on click)
       if (givenMask[row][col]) {
