@@ -204,14 +204,12 @@ h1 {
 
 .cell.filled {
   background: var(--accent-strong);
-  border-color: var(--accent-strong);
-  border-right-color: var(--accent-strong);
-  border-bottom-color: var(--accent-strong);
+  border: 1px solid var(--accent-strong);
 }
 
 .cell.filled:hover {
   background: var(--accent);
-  border-color: var(--accent);
+  border: 1px solid var(--accent);
 }
 
 .cell.marked {
