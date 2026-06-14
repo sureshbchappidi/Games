@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Tic-Tac-Toe Lab</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/png" href="icons/icon-192.png" />
+  <meta name="theme-color" content="#d66c37" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../game-ui-kit/theme.css" />
+  <link rel="stylesheet" href="../game-ui-kit/shell.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <section class="panel">
+      <header>
+        <h1>Tic-Tac-Toe Lab</h1>
+        <p class="subtitle">Fast rounds with smart AI and clean controls.</p>
+      </header>
+
+      <div class="top-controls">
+        <label for="mode-selector">Mode</label>
+        <select id="mode-selector" aria-label="Select play mode">
+          <option value="pvp">Player vs Player</option>
+          <option value="ai" selected>Player vs AI</option>
+        </select>
+
+        <label for="ai-level">AI</label>
+        <select id="ai-level" aria-label="Select AI level">
+          <option value="easy">Easy</option>
+          <option value="medium" selected>Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+
+        <label for="theme-selector">Theme</label>
+        <select id="theme-selector" aria-label="Select theme">
+          <option value="default">Warm Beige</option>
+          <option value="forest">Forest Green</option>
+          <option value="purple">Deep Purple</option>
+          <option value="orange">Sunrise Orange</option>
+          <option value="minimal">Minimalist</option>
+          <option value="dark">Dark Slate</option>
+        </select>
+
+        <button id="new-game-btn" type="button">New Game</button>
+        <button id="swap-first-btn" type="button">Swap First</button>
+      </div>
+
+      <section class="score-row" aria-label="Score board">
+        <div class="score-card"><span>X</span><strong id="score-x">0</strong></div>
+        <div class="score-card"><span>Draw</span><strong id="score-draw">0</strong></div>
+        <div class="score-card"><span>O</span><strong id="score-o">0</strong></div>
+      </section>
+
+      <section id="board" class="board" aria-label="Tic-Tac-Toe board"></section>
+      <p id="status" class="status">Ready.</p>
+    </section>
+  </main>
+
+  <script type="module" src="app.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("./sw.js?v=1").then((reg) => reg.update());
+    }
+  </script>
+</body>
+</html>
