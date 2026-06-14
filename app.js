@@ -975,4 +975,21 @@ digitIndicators.forEach(indicator => {
 
 updateModeButton();
 updateCandidatesButton();
+
+// ── Theme Management ──
+const themeSelector = document.getElementById("theme-selector");
+
+function initializeTheme() {
+  const savedTheme = localStorage.getItem("sudoku-theme") || "default";
+  document.documentElement.setAttribute("data-theme", savedTheme);
+  themeSelector.value = savedTheme;
+}
+
+themeSelector.addEventListener("change", (e) => {
+  const selectedTheme = e.target.value;
+  document.documentElement.setAttribute("data-theme", selectedTheme);
+  localStorage.setItem("sudoku-theme", selectedTheme);
+});
+
+initializeTheme();
 startNewPuzzle();
