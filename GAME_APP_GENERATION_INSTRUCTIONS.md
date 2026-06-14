@@ -14,19 +14,19 @@ Each game must be generated in its own folder and run independently.
 
 ## 2) Required Output Structure (Per Game)
 For each game app, generate this structure:
-- [game-name]/index.html
-- [game-name]/styles.css
-- [game-name]/app.js
-- [game-name]/manifest.json
-- [game-name]/sw.js
-- [game-name]/icons/icon-192.png
-- [game-name]/icons/icon-512.png
-- [game-name]/README.md
+- games/[game-name]/index.html
+- games/[game-name]/styles.css
+- games/[game-name]/app.js
+- games/[game-name]/manifest.json
+- games/[game-name]/sw.js
+- games/[game-name]/icons/icon-192.png
+- games/[game-name]/icons/icon-512.png
+- games/[game-name]/README.md
 
 Optional when needed:
-- [game-name]/assets/
-- [game-name]/levels/
-- [game-name]/data/
+- games/[game-name]/assets/
+- games/[game-name]/levels/
+- games/[game-name]/data/
 
 ## 3) Visual Style Contract (Must Match Sudoku Family)
 Use these design principles:

@@ -22,4 +22,4 @@ python3 -m http.server 5500
 
 Then visit:
 
-`http://localhost:5500/TicTacToe/`
+`http://localhost:5500/games/tictactoe/`
