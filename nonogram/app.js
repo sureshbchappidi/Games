@@ -399,6 +399,8 @@ function render() {
   wrapper.style.display = "grid";
   wrapper.style.gridTemplateColumns = `repeat(${maxLeft}, ${clueSize}) repeat(${size}, ${cellSize})`;
   wrapper.style.gap = "0";
+  wrapper.style.gridAutoFlow = "row";
+  wrapper.style.minWidth = "min-content";
 
   // Top clue area
   for (let tr = 0; tr < maxTop; tr += 1) {

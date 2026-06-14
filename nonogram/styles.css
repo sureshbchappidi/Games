@@ -118,6 +118,9 @@ h1 {
 .nonogram-root {
   margin-top: 0;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  justify-content: center;
 }
 
 /* Clue cells — proper grid cells for clues */
