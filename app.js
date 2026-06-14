@@ -31,6 +31,14 @@ let userNotes = emptyNotes();
 let undoStack = [];
 let focusedCell = null; // {row, col}
 
+// Mobile keyboard behavior
+let lastTapTime = 0;
+let lastTapCell = null;
+
+function isMobileViewport() {
+  return window.innerWidth <= 600;
+}
+
 function emptyBoard() {
   return Array.from({ length: SIZE }, () => Array(SIZE).fill(0));
 }
@@ -626,12 +634,21 @@ function renderBoard() {
         cell.classList.add("user-value");
       }
 
+      // On mobile, make input readonly to prevent auto-showing keyboard
+      if (isMobileViewport()) {
+        input.readOnly = true;
+      }
+
       input.addEventListener("focus", () => {
         focusedCell = { row, col };
         applyHighlights(row, col);
       });
 
       input.addEventListener("blur", () => {
+        // Re-apply readonly on mobile to prevent keyboard showing on accidental focus
+        if (isMobileViewport() && !givenMask[row][col]) {
+          input.readOnly = true;
+        }
         // small delay so focus moving to another cell clears+reapplies cleanly
         setTimeout(() => {
           if (!focusedCell || focusedCell.row !== row || focusedCell.col !== col) {
@@ -642,6 +659,24 @@ function renderBoard() {
         }, 50);
       });
 
+      // Double-tap detection for mobile keyboard
+      cell.addEventListener("touchend", (event) => {
+        if (!isMobileViewport() || givenMask[row][col]) {
+          return;
+        }
+        const now = Date.now();
+        const isDoubleTap = lastTapCell === cell && now - lastTapTime < 300;
+        lastTapTime = now;
+        lastTapCell = cell;
+
+        if (isDoubleTap) {
+          event.preventDefault();
+          // Remove readonly on double-tap to show keyboard
+          input.readOnly = false;
+          input.focus();
+        }
+      });
+
       // Click handler for given cells (read-only inputs don't fire focus properly on click)
       if (givenMask[row][col]) {
         input.addEventListener("click", () => {
@@ -649,6 +684,18 @@ function renderBoard() {
           applyHighlights(row, col);
         });
         // Also add click handler to the cell div to handle clicks on the whole cell
+        cell.addEventListener("click", () => {
+          focusedCell = { row, col };
+          applyHighlights(row, col);
+        });
+      } else if (!isMobileViewport()) {
+        // On desktop, clicking input shows keyboard normally
+        input.addEventListener("click", () => {
+          focusedCell = { row, col };
+          applyHighlights(row, col);
+        });
+      } else {
+        // On mobile, single click just selects the cell (no keyboard)
         cell.addEventListener("click", () => {
           focusedCell = { row, col };
           applyHighlights(row, col);
