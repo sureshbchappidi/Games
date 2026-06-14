@@ -1,5 +1,3 @@
-import { initTheme } from "../game-ui-kit/theme.js";
-
 const rootEl = document.getElementById("nonogram-root");
 const sizeSelector = document.getElementById("size-selector");
 const puzzleSelector = document.getElementById("puzzle-selector");
@@ -231,6 +229,8 @@ function render() {
       if (playerGrid[r][c] === 1) cell.classList.add("filled");
       if (playerGrid[r][c] === 2) cell.classList.add("marked");
       if (hintCell && hintCell.row === r && hintCell.col === c) cell.classList.add("hint");
+      if ((c + 1) % 5 === 0 && c + 1 < size) cell.dataset.groupRight = "";
+      if ((r + 1) % 5 === 0 && r + 1 < size) cell.dataset.groupBottom = "";
 
       cell.addEventListener("click", () => applyCell(r, c, modeSelector.value));
       cell.addEventListener("contextmenu", (event) => {
@@ -268,6 +268,5 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "0") modeSelector.value = "erase";
 });
 
-initTheme("theme-selector", "nonogram-theme");
 populatePuzzleSelector();
 startPuzzle();
