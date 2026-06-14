@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Nonogram Lab</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/png" href="icons/icon-192.png" />
+  <meta name="theme-color" content="#d66c37" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../game-ui-kit/theme.css" />
+  <link rel="stylesheet" href="../game-ui-kit/shell.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <section class="panel">
+      <header>
+        <h1>Nonogram Lab</h1>
+        <p class="subtitle">Fill cells from clues to reveal the hidden pattern.</p>
+      </header>
+
+      <div class="top-controls">
+        <label for="size-selector">Grid</label>
+        <select id="size-selector" aria-label="Select grid size">
+          <option value="5" selected>5x5</option>
+          <option value="10">10x10</option>
+        </select>
+
+        <label for="puzzle-selector">Puzzle</label>
+        <select id="puzzle-selector" aria-label="Select puzzle"></select>
+
+        <label for="paint-mode">Mode</label>
+        <select id="paint-mode" aria-label="Select paint mode">
+          <option value="fill" selected>Fill</option>
+          <option value="mark">Mark X</option>
+          <option value="erase">Erase</option>
+        </select>
+
+        <label for="theme-selector">Theme</label>
+        <select id="theme-selector" aria-label="Select theme">
+          <option value="default">Warm Beige</option>
+          <option value="forest">Forest Green</option>
+          <option value="purple">Deep Purple</option>
+          <option value="orange">Sunrise Orange</option>
+          <option value="minimal">Minimalist</option>
+          <option value="dark">Dark Slate</option>
+        </select>
+
+        <button id="new-btn" type="button">New Puzzle</button>
+        <button id="clear-btn" type="button">Clear</button>
+        <button id="hint-btn" type="button">Hint</button>
+        <button id="check-btn" type="button">Check</button>
+      </div>
+
+      <section class="legend" aria-label="Input help">
+        <span><b>Fill:</b> left click</span>
+        <span><b>Mark X:</b> right click</span>
+        <span><b>Keys:</b> 1 fill, 2 mark, 0 erase</span>
+      </section>
+
+      <section id="nonogram-root" class="nonogram-root" aria-label="Nonogram board"></section>
+      <p id="status" class="status">Ready.</p>
+    </section>
+  </main>
+
+  <script type="module" src="app.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("./sw.js?v=1").then((reg) => reg.update());
+    }
+  </script>
+</body>
+</html>
