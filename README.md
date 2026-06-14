@@ -36,3 +36,10 @@ Each step includes:
 
 - Puzzle generation enforces uniqueness.
 - The explainer starts with logic techniques and can continue with guided guesses when needed, while still describing each step.
+
+## Multi-Game Hub
+
+- Game Hub: `Hub/index.html`
+- Sudoku: `index.html`
+- Tic-Tac-Toe: `TicTacToe/index.html`
+- Nonogram: `Nonogram/index.html`

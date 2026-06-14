@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Games Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../game-ui-kit/theme.css" />
+  <link rel="stylesheet" href="../game-ui-kit/shell.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <section class="panel">
+      <header>
+        <h1>Reasoning Games Hub</h1>
+        <p class="subtitle">Choose a game. Same style, separate apps.</p>
+      </header>
+
+      <div class="top-controls">
+        <label for="theme-selector">Theme</label>
+        <select id="theme-selector" aria-label="Select theme">
+          <option value="default">Warm Beige</option>
+          <option value="forest">Forest Green</option>
+          <option value="purple">Deep Purple</option>
+          <option value="orange">Sunrise Orange</option>
+          <option value="minimal">Minimalist</option>
+          <option value="dark">Dark Slate</option>
+        </select>
+      </div>
+
+      <section class="card-grid" aria-label="Game list">
+        <article class="game-card">
+          <h2>Sudoku Reasoning Lab</h2>
+          <p>Classic Sudoku with hints, notes mode, OCR input, and progress tooling.</p>
+          <a class="open-btn" href="../index.html">Open Sudoku</a>
+        </article>
+
+        <article class="game-card">
+          <h2>Tic-Tac-Toe Lab</h2>
+          <p>Fast rounds with PvP/PvAI, difficulty levels, and score tracking.</p>
+          <a class="open-btn" href="../TicTacToe/">Open Tic-Tac-Toe</a>
+        </article>
+
+        <article class="game-card">
+          <h2>Nonogram Lab</h2>
+          <p>Puzzle grids with clues, fill/mark modes, hint, and progress checks.</p>
+          <a class="open-btn" href="../Nonogram/">Open Nonogram</a>
+        </article>
+      </section>
+
+      <p class="status">Tip: Bookmark this hub at /Hub/ for quick access.</p>
+    </section>
+  </main>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
